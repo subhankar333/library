@@ -1,24 +1,37 @@
 import logo from './logo.svg';
 import './App.css';
+import {BrowserRouter , Routes, Route} from "react-router-dom"
+import HomeComponent from './components/Home/Home';
+import Navbar from './components/Navbar/Navbar';
+import AddBook from './components/AddBook/AddBook';
+import GetBooks from './components/GetBook/GetBook';
+import EditBook from './components/EditBook/EditBook';
+import Register from './components/Register/Register';
+import Login from './components/Login/Login';
+import Profile from './components/Profile/Profile';
+import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+    <Navbar/>
+    <Routes>
+
+         <Route path='/*'>
+             <Route index element={<HomeComponent />} />
+             <Route path='register' element={<Register />} />
+             <Route path='login' element={<Login />} />
+         </Route>
+
+         <Route path='user/*' element={<PrivateRoute/>}>
+             <Route path='add-book' element={<AddBook />} />
+             <Route path='get-books' element={<GetBooks />} />
+             <Route path='edit-book/:bookId' element={<EditBook />} />
+             <Route path='profile' element={<Profile />} />
+         </Route>
+         
+    </Routes>
+ </BrowserRouter>
   );
 }
 
